@@ -93,18 +93,18 @@ class ShowBooksTable:
 
     def addBook_window(self):
         """Add book window"""
-        self.addBook_window = tk.Tk()
-        self.addBook_window.title("Add Book row")
-        self.addBook_window.geometry("480x250+500+250")
-        self.addBook_window.grid_columnconfigure([1, 2], weight=1)
+        addBook_window = tk.Tk()
+        addBook_window.title("Add Book row")
+        addBook_window.geometry("480x250+500+250")
+        addBook_window.grid_columnconfigure([1, 2], weight=1)
 
-        lbl_name = tk.Label(self.addBook_window, text="Name", font="Sans 13", padx=5, pady=5)
-        lbl_author = tk.Label(self.addBook_window, text="Author", font="Sans 13", padx=5, pady=5)
-        lbl_user_rating = tk.Label(self.addBook_window, text="User rating", font="Sans 13", padx=5, pady=5)
-        lbl_reviews = tk.Label(self.addBook_window, text="Reviews", font="Sans 13", padx=5, pady=5)
-        lbl_price = tk.Label(self.addBook_window, text="Price", font="Sans 13", padx=5, pady=5)
-        lbl_year = tk.Label(self.addBook_window, text="Year", font="Sans 13", padx=5, pady=5)
-        lbl_genre = tk.Label(self.addBook_window, text="Genre", font="Sans 13", padx=5, pady=5)
+        lbl_name = tk.Label(addBook_window, text="Name", font="Sans 13", padx=5, pady=5)
+        lbl_author = tk.Label(addBook_window, text="Author", font="Sans 13", padx=5, pady=5)
+        lbl_user_rating = tk.Label(addBook_window, text="User rating", font="Sans 13", padx=5, pady=5)
+        lbl_reviews = tk.Label(addBook_window, text="Reviews", font="Sans 13", padx=5, pady=5)
+        lbl_price = tk.Label(addBook_window, text="Price", font="Sans 13", padx=5, pady=5)
+        lbl_year = tk.Label(addBook_window, text="Year", font="Sans 13", padx=5, pady=5)
+        lbl_genre = tk.Label(addBook_window, text="Genre", font="Sans 13", padx=5, pady=5)
 
         lbl_name.grid(row=0, column=0, sticky=tk.E)
         lbl_author.grid(row=1, column=0, sticky=tk.E)
@@ -114,21 +114,21 @@ class ShowBooksTable:
         lbl_year.grid(row=5, column=0, sticky=tk.E)
         lbl_genre.grid(row=6, column=0, sticky=tk.E)
 
-        self.lbl_nameError = tk.Label(self.addBook_window, text="", fg="red")
-        self.lbl_authorError = tk.Label(self.addBook_window, text="", fg="red")
-        self.lbl_user_ratingError = tk.Label(self.addBook_window, text="", fg="red")
-        self.lbl_reviewsError = tk.Label(self.addBook_window, text="", fg="red")
-        self.lbl_priceError = tk.Label(self.addBook_window, text="", fg="red")
-        self.lbl_yearError = tk.Label(self.addBook_window, text="", fg="red")
-        self.lbl_genreError = tk.Label(self.addBook_window, text="", fg="red")
+        self.lbl_nameError = tk.Label(addBook_window, text="", fg="red")
+        self.lbl_authorError = tk.Label(addBook_window, text="", fg="red")
+        self.lbl_user_ratingError = tk.Label(addBook_window, text="", fg="red")
+        self.lbl_reviewsError = tk.Label(addBook_window, text="", fg="red")
+        self.lbl_priceError = tk.Label(addBook_window, text="", fg="red")
+        self.lbl_yearError = tk.Label(addBook_window, text="", fg="red")
+        self.lbl_genreError = tk.Label(addBook_window, text="", fg="red")
 
-        self.ent_name = tk.Entry(self.addBook_window, width=20)
-        self.ent_author = tk.Entry(self.addBook_window, width=20)
-        self.ent_user_rating = tk.Entry(self.addBook_window, width=20)
-        self.ent_reviews = tk.Entry(self.addBook_window, width=20)
-        self.ent_price = tk.Entry(self.addBook_window, width=20)
-        self.ent_year = tk.Entry(self.addBook_window, width=20)
-        self.ent_genre = tk.Entry(self.addBook_window, width=20)
+        self.ent_name = tk.Entry(addBook_window, width=20)
+        self.ent_author = tk.Entry(addBook_window, width=20)
+        self.ent_user_rating = tk.Entry(addBook_window, width=20)
+        self.ent_reviews = tk.Entry(addBook_window, width=20)
+        self.ent_price = tk.Entry(addBook_window, width=20)
+        self.ent_year = tk.Entry(addBook_window, width=20)
+        self.ent_genre = tk.Entry(addBook_window, width=20)
 
         self.ent_name.grid(row=0, column=1)
         self.ent_author.grid(row=1, column=1)
@@ -140,11 +140,11 @@ class ShowBooksTable:
 
         self.ent_name.focus_set()
 
-        btn_submit_add = tk.Button(self.addBook_window, text="Add", width=8, command=self.create_new_BooksRow)
+        btn_submit_add = tk.Button(addBook_window, text="Add", width=8, command=lambda: self.create_new_BooksRow(addBook_window))
 
         btn_submit_add.grid(row=7, columnspan=3)
 
-    def create_new_BooksRow(self):
+    def create_new_BooksRow(self, addBook_window):
         """Create new book row in DB"""
         name = self.ent_name.get()
         author = self.ent_author.get()
@@ -159,7 +159,7 @@ class ShowBooksTable:
         if self.valid_name and self.valid_author and self.valid_user_rating and self.valid_reviews \
                 and self.valid_price and self.valid_year and self.valid_genre:
             RootApp.Root.app.addBook_row(name, author, user_rating, reviews, price, year, genre)
-            self.addBook_window.destroy()
+            addBook_window.destroy()
             self.showBook_window.destroy()
 
             self.refresh_create_window = tk.Tk()
@@ -231,7 +231,7 @@ class ShowBooksTable:
         self.valid_year = False
         self.valid_genre = False
 
-        if 4 < len(name) < 200:
+        if 2 < len(name) < 200:
             self.valid_name = True
 
         if 0 < len(author) < 150:
@@ -255,15 +255,15 @@ class ShowBooksTable:
     def deleteBook_window(self):
         """Delete book window"""
         if self.id_select:
-            self.deleteBook_window = tk.Tk()
-            self.deleteBook_window.title("Delete Book row")
-            self.deleteBook_window.geometry("270x130+500+250")
+            deleteBook_window = tk.Tk()
+            deleteBook_window.title("Delete Book row")
+            deleteBook_window.geometry("270x130+500+250")
 
-            lbl_confirm = tk.Label(self.deleteBook_window, text="Are you sure?", font="Sans 21")
+            lbl_confirm = tk.Label(deleteBook_window, text="Are you sure?", font="Sans 21")
             lbl_confirm.pack()
 
-            btn_cancel = tk.Button(self.deleteBook_window, text="No", width=7, command=self.deleteBook_window.destroy)
-            btn_confirm = tk.Button(self.deleteBook_window, text="Yes", width=7, command=self.deleteBook_row)
+            btn_cancel = tk.Button(deleteBook_window, text="No", width=7, command=deleteBook_window.destroy)
+            btn_confirm = tk.Button(deleteBook_window, text="Yes", width=7, command=lambda: self.deleteBook_row(deleteBook_window))
 
             btn_cancel.pack(side=tk.LEFT)
             btn_confirm.pack(side=tk.RIGHT)
@@ -271,10 +271,10 @@ class ShowBooksTable:
             self.error_noSelected()
             print('[INFO] Error while deleting. Element did not select.')
 
-    def deleteBook_row(self):
+    def deleteBook_row(self, deleteBook_window):
         """Delete book row from DataBase"""
         RootApp.Root.app.delete_by_ID(self.id_select, "books")
-        self.deleteBook_window.destroy()
+        deleteBook_window.destroy()
         self.showBook_window.destroy()
 
         refresh_deleteBook_window = tk.Tk()
@@ -284,21 +284,21 @@ class ShowBooksTable:
 
     def sortBook_window(self):
         """Sorting window for the selected column"""
-        self.sortBook_window = tk.Toplevel(self.showBook_window)
-        self.sortBook_window.title("Sorting data")
-        self.sortBook_window.geometry("680x80+330+250")
+        sortBook_window = tk.Toplevel(self.showBook_window)
+        sortBook_window.title("Sorting data")
+        sortBook_window.geometry("680x80+330+250")
 
-        lbl_title = tk.Label(self.sortBook_window, text="Choose column you want to sort", font="Sans 15")
+        lbl_title = tk.Label(sortBook_window, text="Choose column you want to sort", font="Sans 15")
         lbl_title.pack()
 
-        btn_idColumn = tk.Button(self.sortBook_window, text="ID", command=lambda: self.sort_column("id"))
-        btn_nameColumn = tk.Button(self.sortBook_window, text="Name", command=lambda: self.sort_column("name"))
-        btn_authorColumn = tk.Button(self.sortBook_window, text="Author", command=lambda: self.sort_column("author"))
-        btn_user_ratingColumn = tk.Button(self.sortBook_window, text="User rating", command=lambda: self.sort_column("user_rating"))
-        btn_reviewsColumn = tk.Button(self.sortBook_window, text="Reviews", command=lambda: self.sort_column("reviews"))
-        btn_priceColumn = tk.Button(self.sortBook_window, text="Price", command=lambda: self.sort_column("price"))
-        btn_yearColumn = tk.Button(self.sortBook_window, text="Year", command=lambda: self.sort_column("year"))
-        btn_genreColumn = tk.Button(self.sortBook_window, text="Genre", command=lambda: self.sort_column("genre"))
+        btn_idColumn = tk.Button(sortBook_window, text="ID", command=lambda: self.sort_column("id", sortBook_window))
+        btn_nameColumn = tk.Button(sortBook_window, text="Name", command=lambda: self.sort_column("name", sortBook_window))
+        btn_authorColumn = tk.Button(sortBook_window, text="Author", command=lambda: self.sort_column("author", sortBook_window))
+        btn_user_ratingColumn = tk.Button(sortBook_window, text="User rating", command=lambda: self.sort_column("user_rating", sortBook_window))
+        btn_reviewsColumn = tk.Button(sortBook_window, text="Reviews", command=lambda: self.sort_column("reviews", sortBook_window))
+        btn_priceColumn = tk.Button(sortBook_window, text="Price", command=lambda: self.sort_column("price", sortBook_window))
+        btn_yearColumn = tk.Button(sortBook_window, text="Year", command=lambda: self.sort_column("year", sortBook_window))
+        btn_genreColumn = tk.Button(sortBook_window, text="Genre", command=lambda: self.sort_column("genre", sortBook_window))
 
         btn_idColumn.pack(side=tk.LEFT, padx=4)
         btn_nameColumn.pack(side=tk.LEFT, padx=4)
@@ -309,9 +309,9 @@ class ShowBooksTable:
         btn_yearColumn.pack(side=tk.LEFT, padx=4)
         btn_genreColumn.pack(side=tk.LEFT, padx=4)
 
-    def sort_column(self, column):
+    def sort_column(self, column, sortBook_window):
         """Sorting rows of DataBase"""
-        self.sortBook_window.destroy()
+        sortBook_window.destroy()
         self.showBook_window.destroy()
 
         refresh_sortColumn_window = tk.Tk()
@@ -321,18 +321,29 @@ class ShowBooksTable:
 
     def findBook_window(self):
         """The record search window for the selected field"""
-        self.findBook_window = tk.Tk()
-        self.findBook_window.title("Find in DB")
-        self.findBook_window.geometry("380x140+500+250")
+        findBook_window = tk.Tk()
+        findBook_window.title("Find in DB")
+        findBook_window.geometry("380x140+500+250")
 
-        lbl_combobox_title = tk.Label(self.findBook_window, text="Choose column you want to find", font="Sans 21")
-        self.lbl_findError = tk.Label(self.findBook_window, text="", font="Sans 15", fg="red")
+        self.choice_find = None
+
+        lbl_combobox_title = tk.Label(findBook_window, text="Choose column you want to find", font="Sans 21")
+        self.lbl_findError = tk.Label(findBook_window, text="", font="Sans 15", fg="red")
         lbl_combobox_title.pack()
         self.lbl_findError.pack()
 
+        self.fromTo_value = tk.StringVar()
+        from_rdbtn = tk.Radiobutton(findBook_window, text="<", variable=self.fromTo_value, value=1)
+        to_rdbtn = tk.Radiobutton(findBook_window, text=">", variable=self.fromTo_value, value=2)
+
+        from_rdbtn.pack()
+        to_rdbtn.pack()
+
+        self.lbl_fromTo_value = tk.Label(findBook_window, textvariable=self.fromTo_value)
+
         self.columns = ["name", "author", "user_rating", "reviews", "price", "year", "genre"]
         self.selected_column = tk.StringVar()
-        self.cmb_find = ttk.Combobox(self.findBook_window, textvariable=self.selected_column, width=12)
+        self.cmb_find = ttk.Combobox(findBook_window, textvariable=self.selected_column, width=12)
         self.cmb_find["values"] = self.columns
         self.cmb_find["state"] = "readonly"
 
@@ -340,26 +351,25 @@ class ShowBooksTable:
 
         self.cmb_find.bind("<<ComboboxSelected>>", self.columnSearch_changed)
 
-        self.ent_search = tk.Entry(self.findBook_window, width=15)
+        self.ent_search = tk.Entry(findBook_window, width=15)
         self.ent_search.pack(side=tk.LEFT)
 
-        btn_search = tk.Button(self.findBook_window, text="Search", command=self.search_rows)
+        btn_search = tk.Button(findBook_window, text="Search", command=lambda: self.search_rows(findBook_window))
         btn_search.pack(side=tk.LEFT)
-
-        self.choice_find = None
 
     def columnSearch_changed(self, event):
         """Getting a value from the Combobox"""
         self.choice_find = self.cmb_find.get()
 
-    def search_rows(self):
+    def search_rows(self, findBook_window):
         """Search for a record by the selected parameters"""
         if self.choice_find != None:
             self.isValid = False
             self.validate_column(self.choice_find)
-            response = RootApp.Root.app.search_element("books", self.choice_find, self.ent_search.get())
+            sign = "<" if self.lbl_fromTo_value["text"] == 1 else ">"
+            response = RootApp.Root.app.search_element("books", self.choice_find, self.ent_search.get(), sign)
             if self.isValid and response:
-                self.findBook_window.destroy()
+                findBook_window.destroy()
                 self.showBook_window.destroy()
 
                 refresh_searchRows_window = tk.Tk()
@@ -410,18 +420,18 @@ class ShowBooksTable:
     def updateBook_window(self):
         """Window for updating a specific record"""
         if self.id_select != 0:
-            self.updateBook_window = tk.Tk()
-            self.updateBook_window.title("Update row")
-            self.updateBook_window.geometry("380x140+500+250")
+            updateBook_window = tk.Tk()
+            updateBook_window.title("Update row")
+            updateBook_window.geometry("380x140+500+250")
 
-            lbl_updateBook = tk.Label(self.updateBook_window, text="Choose field for updating.", font="Sans 21")
-            self.lbl_error_updateBook = tk.Label(self.updateBook_window, text="", fg="red", font="Sans 16")
+            lbl_updateBook = tk.Label(updateBook_window, text="Choose field for updating.", font="Sans 21")
+            self.lbl_error_updateBook = tk.Label(updateBook_window, text="", fg="red", font="Sans 16")
             lbl_updateBook.pack()
             self.lbl_error_updateBook.pack()
 
             self.update_columns = ["name", "author", "user_rating", "reviews", "price", "year", "genre"]
             self.update_selected_column = tk.StringVar()
-            self.cmb_update = ttk.Combobox(self.updateBook_window, textvariable=self.update_selected_column, width=12)
+            self.cmb_update = ttk.Combobox(updateBook_window, textvariable=self.update_selected_column, width=12)
             self.cmb_update["values"] = self.update_columns
             self.cmb_update["state"] = "readonly"
 
@@ -429,10 +439,10 @@ class ShowBooksTable:
 
             self.cmb_update.bind("<<ComboboxSelected>>", self.columnUpdate_changed)
 
-            self.ent_update = tk.Entry(self.updateBook_window, width=15)
+            self.ent_update = tk.Entry(updateBook_window, width=15)
             self.ent_update.pack(side=tk.LEFT)
 
-            btn_update = tk.Button(self.updateBook_window, text="Update", command=self.update_book)
+            btn_update = tk.Button(updateBook_window, text="Update", command=lambda: self.update_book(updateBook_window))
             btn_update.pack(side=tk.LEFT)
 
             self.choice_update = None
@@ -460,13 +470,13 @@ class ShowBooksTable:
 
         error_noSelected.mainloop()
 
-    def update_book(self):
+    def update_book(self, updateBook_window):
         """Updating the contents of the selected field"""
         if self.choice_update != None:
             self.validate_column(self.choice_update, "update")
             if self.isValid:
                 RootApp.Root.app.update_element("books", self.choice_update, self.ent_update.get(), self.id_select)
-                self.updateBook_window.destroy()
+                updateBook_window.destroy()
                 self.showBook_window.destroy()
                 refresh_updateBook_window = tk.Tk()
                 refresh_updateBook = ShowBooksTable(refresh_updateBook_window)
@@ -547,10 +557,10 @@ class ShowBooksTable:
         self.addBook_window()
 
     def bind_delete(self, event):
-        self.deleteBook_window
+        self.deleteBook_window()
 
     def bind_sort(self, event):
-        self.deleteBook_window()
+        self.sortBook_window()
 
     def bind_find(self, event):
         self.findBook_window()

@@ -73,13 +73,23 @@ class Database:
         except psycopg2.Error as err:
             print("[INFO] Error while deleting user", err)
 
-    def search_element(self, table, column, value):
+    def search_element(self, table, column, value, sign=">"):
         """Search rows with specific parameters"""
         try:
             with self.connection.cursor() as cursor:
-                cursor.execute(f"SELECT * FROM {table} WHERE {column}='{value}'")
-                response = cursor.fetchall()
-                return response
+                if column == "name" or column == "author" or column == "genre":
+                    cursor.execute(f"SELECT * FROM {table} WHERE {column} ILIKE '%{value}%'")
+                    response = cursor.fetchall()
+                    return response
+                elif column == "user_rating" or column == "reviews" or column == "price" or column == "year":
+                    if sign == '>':
+                        cursor.execute(f"SELECT * FROM {table} WHERE {column}>'{value}'")
+                        response = cursor.fetchall()
+                        return response
+                    elif sign == "<":
+                        cursor.execute(f"SELECT * FROM {table} WHERE {column}<'{value}'")
+                        response = cursor.fetchall()
+                        return response
         except psycopg2.Error as err:
             print("[INFO] Error while searching element.", err)
 
