@@ -4,6 +4,7 @@ from tkinter import ttk
 
 from Components import RootApp
 from Components import TablesChoice
+from Permissions import Permission
 
 
 class ShowUsersTable:
@@ -114,18 +115,26 @@ class ShowUsersTable:
         email = self.ent_email.get()
         password = self.ent_password.get()
         role = self.empty["text"]
-        if re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email) and len(password) > 4:
-            RootApp.Root.app.create_user(email, password, role)
+        perm_check = Permission()
+        perm_check.checkPermission(role)
 
-            self.addUser_window.destroy()
-            self.showUser_window.destroy()
+        isExist = RootApp.Root.app.get_user(email)
+        if not isExist:
+            if re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email) and len(password) > 4:
+                RootApp.Root.app.create_user(email, password, perm_check.permission)
 
-            refresh_create_window = tk.Tk()
-            refresh_create = ShowUsersTable(refresh_create_window)
-            print('[INFO] Successfully added')
+                self.addUser_window.destroy()
+                self.showUser_window.destroy()
+
+                refresh_create_window = tk.Tk()
+                refresh_create = ShowUsersTable(refresh_create_window)
+                print('[INFO] Successfully added')
+            else:
+                self.lbl_addError['text'] = 'Invalid email/password.'
+                print('[INFO] Error while adding in User table. Invalid email/password.')
         else:
-            self.lbl_addError['text'] = 'Invalid email/password.'
-            print('[INFO] Error while adding in User table. Invalid email/password.')
+            self.lbl_addError['text'] = 'Such user is already exist.'
+            print('[INFO] Error while adding in User table. Such user is already exist')
 
     def deleteUser_window(self):
         """Delete user window"""

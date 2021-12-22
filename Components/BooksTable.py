@@ -523,8 +523,8 @@ class ShowBooksTable:
                 text.insert('end', description)
                 text.pack(pady=15)
                 text["state"] = "disabled"
-                text["background"] = "#333232"  # For DARK Mac OS theme
-                # text["background"] = "#ececec"  # For LIGHT Mac OS theme
+                # text["background"] = "#333232"  # For DARK Mac OS theme
+                text["background"] = "#ececec"  # For LIGHT Mac OS theme
 
                 btn_close = tk.Button(authorInfo_window, height=2, text="So interesting", font=("Ubuntu Mono", 15),
                                       command=authorInfo_window.destroy)
