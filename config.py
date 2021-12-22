@@ -1,7 +1,7 @@
-HOST = 'localhost'
-USER = 'postgres'
-PASSWORD = 'Kotsik23'
-DB_NAME = 'library'
-USER_TABLE = 'users'
-BOOKS_TABLE = 'books'
-AUTHOR_TABLE = 'authors'
+HOST = "localhost"
+USER = "postgres"
+PASSWORD = "Kotsik23"
+DB_NAME = "library"
+USER_TABLE = "users"
+BOOKS_TABLE = "books"
+AUTHOR_TABLE = "authors"

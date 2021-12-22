@@ -1,10 +1,10 @@
-import tkinter as tk
-
-from tkinter import messagebox as mb
-from db_controller import Database
-from Components import TablesChoice
-import Permissions
 import re
+import tkinter as tk
+from tkinter import messagebox as mb
+
+import Permissions
+from Components import TablesChoice
+from db_controller import Database
 
 
 class Root:
@@ -32,21 +32,32 @@ class Root:
 
         self.ent_email.focus_set()
 
-        self.btn_submit_signUp = tk.Button(self.root, text="Sign up", command=self.register)
+        self.btn_submit_signUp = tk.Button(
+            self.root, text="Sign up", command=self.register
+        )
         self.btn_submit_signUp.grid(row=3, column=0, pady=12)
 
-        self.btn_submit_signUIn = tk.Button(self.root, text="Sign in", command=self.authorization)
+        self.btn_submit_signUIn = tk.Button(
+            self.root, text="Sign in", command=self.authorization
+        )
         self.btn_submit_signUIn.grid(row=3, column=1)
 
         self.lbl_error = tk.Label(self.root, text="", font="Sans 15", fg="red")
         self.lbl_error.grid(row=4, columnspan=2)
 
         self.check_value = tk.IntVar()
-        self.btn_check = tk.Checkbutton(self.root, text="Get full access", variable=self.check_value,
-                                        onvalue=1, offvalue=0)
+        self.btn_check = tk.Checkbutton(
+            self.root,
+            text="Get full access",
+            variable=self.check_value,
+            onvalue=1,
+            offvalue=0,
+        )
         self.btn_check.grid(row=5, column=0, padx=5)
 
-        self.btn_exit = tk.Button(self.root, text="Exit", width=8, command=self.root.destroy)
+        self.btn_exit = tk.Button(
+            self.root, text="Exit", width=8, command=self.root.destroy
+        )
         self.btn_exit.grid(row=5, column=1, padx=10)
 
         if self.app.connection:

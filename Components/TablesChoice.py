@@ -1,8 +1,6 @@
 import tkinter as tk
 
-from Components import RootApp
-from Components import BooksTable
-from Components import UsersTable
+from Components import BooksTable, RootApp, UsersTable
 
 
 class Tables:
@@ -12,14 +10,20 @@ class Tables:
         self.db_tables.title("DB management")
         self.db_tables.grid_columnconfigure([0, 1, 2, 3], weight=1)
 
-        lbl_title = tk.Label(self.db_tables, text="DB tables", font=("Sans", 20), padx=10)
+        lbl_title = tk.Label(
+            self.db_tables, text="DB tables", font=("Sans", 20), padx=10
+        )
         lbl_title.grid(row=0, columnspan=2)
 
         self.lbl_permission_state = tk.Label(self.db_tables, text="", font="Sans 14")
         self.lbl_permission_state.grid(row=1, columnspan=2)
 
-        btn_books_table = tk.Button(self.db_tables, text="Books", width=7, command=self.show_books_table)
-        btn_users_table = tk.Button(self.db_tables, text="Users", width=7, command=self.show_users_table)
+        btn_books_table = tk.Button(
+            self.db_tables, text="Books", width=7, command=self.show_books_table
+        )
+        btn_users_table = tk.Button(
+            self.db_tables, text="Users", width=7, command=self.show_users_table
+        )
 
         btn_books_table.grid(row=2, column=0, padx=20)
         btn_users_table.grid(row=2, column=1, padx=20)
@@ -49,5 +53,7 @@ class Tables:
             self.show = UsersTable.ShowUsersTable(self.show_window)
             print("[INFO] Successfully showed.")
         elif RootApp.Root.perm.permission == "USER":
-            self.lbl_permission_state.configure(text="Access denied. Not enough permissions.", fg="red")
-            print('[INFO] Not enough permissions.')
+            self.lbl_permission_state.configure(
+                text="Access denied. Not enough permissions.", fg="red"
+            )
+            print("[INFO] Not enough permissions.")

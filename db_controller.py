@@ -1,7 +1,7 @@
 import psycopg2
 import psycopg2.extensions
-
-from config import USER, PASSWORD, HOST, DB_NAME, USER_TABLE, BOOKS_TABLE, AUTHOR_TABLE
+from config import (AUTHOR_TABLE, BOOKS_TABLE, DB_NAME, HOST, PASSWORD, USER,
+                    USER_TABLE)
 
 
 class Database:
@@ -78,16 +78,27 @@ class Database:
         try:
             with self.connection.cursor() as cursor:
                 if column == "name" or column == "author" or column == "genre":
-                    cursor.execute(f"SELECT * FROM {table} WHERE {column} ILIKE '%{value}%'")
+                    cursor.execute(
+                        f"SELECT * FROM {table} WHERE {column} ILIKE '%{value}%'"
+                    )
                     response = cursor.fetchall()
                     return response
-                elif column == "user_rating" or column == "reviews" or column == "price" or column == "year":
-                    if sign == '>':
-                        cursor.execute(f"SELECT * FROM {table} WHERE {column}>'{value}'")
+                elif (
+                    column == "user_rating"
+                    or column == "reviews"
+                    or column == "price"
+                    or column == "year"
+                ):
+                    if sign == ">":
+                        cursor.execute(
+                            f"SELECT * FROM {table} WHERE {column}>'{value}'"
+                        )
                         response = cursor.fetchall()
                         return response
                     elif sign == "<":
-                        cursor.execute(f"SELECT * FROM {table} WHERE {column}<'{value}'")
+                        cursor.execute(
+                            f"SELECT * FROM {table} WHERE {column}<'{value}'"
+                        )
                         response = cursor.fetchall()
                         return response
         except psycopg2.Error as err:
@@ -97,7 +108,9 @@ class Database:
         """Update exact column of the element"""
         try:
             with self.connection.cursor() as cursor:
-                cursor.execute(f"UPDATE {table} SET {column} = '{value}' WHERE id = {id}")
+                cursor.execute(
+                    f"UPDATE {table} SET {column} = '{value}' WHERE id = {id}"
+                )
         except psycopg2.Error as err:
             print("[INFO] Error while updating element", err)
 

@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from Components import RootApp
-from Components import TablesChoice
+from Components import RootApp, TablesChoice
 
 
 class ShowBooksTable:
